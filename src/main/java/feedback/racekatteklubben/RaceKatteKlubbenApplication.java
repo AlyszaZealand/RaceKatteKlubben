@@ -1,0 +1,18 @@
+package feedback.racekatteklubben;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RaceKatteKlubbenApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RaceKatteKlubbenApplication.class, args);
+    }
+
+
+
+    // din mor
+
+
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Opret Medlem</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Opret ny profil</h2>
+
+<div th:if="${errors != null}">
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+
+<form action="/register" method="post">
+    <label>Navn:</label><br>
+    <input type="text" name="username"><br><br>
+
+    <label>E-mail:</label><br>
+    <input type="text" name="email"><br><br>
+
+    <label>Adgangskode:</label><br>
+    <input type="password" name="password"><br><br>
+
+    <label>Beskrivelse:</label><br>
+    <textarea name="memberDescription" rows="3"></textarea><br><br>
+
+    <button type="submit">Opret</button>
+</form>
+
+<p><a href="/login">Gå til login</a></p>
+
+</body>
+</html>

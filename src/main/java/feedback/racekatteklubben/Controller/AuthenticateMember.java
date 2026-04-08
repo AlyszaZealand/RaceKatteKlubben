@@ -1,0 +1,81 @@
+package feedback.racekatteklubben.Controller;
+
+import feedback.racekatteklubben.Model.Member;
+import feedback.racekatteklubben.Service.MemberService;
+import feedback.racekatteklubben.Service.Validation.ValidateMember;
+import feedback.racekatteklubben.Service.Validation.ValidationResult;
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
+
+@Controller
+public class AuthenticateMember {
+
+
+    public MemberService memberService;
+    private final ValidateMember validateMember;
+
+    public AuthenticateMember(MemberService memberService, ValidateMember validateMember) {
+        this.memberService = memberService;
+        this.validateMember = validateMember;
+    }
+
+    @GetMapping("/register")
+    public String processRegistration(Model model) {
+        model.addAttribute("member", new Member());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String processRegistration(@ModelAttribute Member newMember, Model model) {
+
+        ValidationResult valResult = validateMember.validateRegisterMember(newMember);
+
+        if (valResult.hasErrors()) {
+            model.addAttribute("errors", valResult.getErrors());
+            return "register";
+        }
+
+        boolean isCreated = memberService.registerNewMember2(newMember);
+
+        if (isCreated) {
+            return "redirect:/login";
+        } else {
+            model.addAttribute("error", "Denne e-mail er desværre allerede i brug.");
+            return "register";
+        }
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
+        Optional<Member> memberOpt = memberService.loginValidation(email, password);
+
+        if (memberOpt.isPresent()) {
+            session.setAttribute("loggedInUser", memberOpt.get());
+            return "redirect:/";
+        }
+        else {
+            model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
+            return "login";
+        }
+    }
+
+
+
+
+
+
+
+}
