@@ -36,10 +36,10 @@ public class AuthenticateMember {
     @PostMapping("/register")
     public String processRegistration(@ModelAttribute Member newMember, Model model) {
 
-        ValidationResult valResult = validateMember.validateRegisterMember(newMember);
+        ValidationResult result = memberService.registerNewMember1(newMember);
 
-        if (valResult.hasErrors()) {
-            model.addAttribute("errors", valResult.getErrors());
+        if (result.hasErrors()) {
+            model.addAttribute("errors", result.getErrors());
             return "registerMember";
         }
 
@@ -63,6 +63,23 @@ public class AuthenticateMember {
             model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/catClubHomePage")
+    public String showHomePage(HttpSession session, Model model) {
+
+        // 1. Hent brugeren op fra sessionen
+        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
+
+        // 2. Sikkerhed: Er de overhovedet logget ind? Ellers ryg tilbage til login!
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        // 3. Giv bruger-objektet til Thymeleaf HTML-siden
+        model.addAttribute("loggedInUser", loggedInUser);
+
+        return "catClubHomePage";
     }
 
 

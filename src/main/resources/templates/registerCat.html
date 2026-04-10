@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrer Kat</title>
+</head>
+<body>
+
+<h2>Opret ny Katte profil</h2>
+
+<div th:if="${errors != null}">
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+
+<form action="/registerKat" method="post" th:object="${cat}">
+
+    <label>Katte navn:</label><br>
+    <input type="text" th:field="*{catName}"><br><br>
+
+    <label>Race:</label><br>
+    <p>Sibirisk-Kat</p>
+    <input type="hidden" th:field="*{catRace}"><br><br>
+
+    <label>Fødselsdato:</label><br>
+    <input type="date" th:field="*{catBirthday}"><br><br>
+
+    <label>Køn:</label><br>
+    <select th:field="*{catGender}">
+        <option value="Han ">Han</option>
+        <option value="Hun">Hun</option>
+    </select><br><br>
+
+    <label>Beskrivelse:</label><br>
+    <textarea th:field="*{catDescription}" rows="3"></textarea><br><br>
+
+    <button type="submit">Opret</button>
+
+</form>
+
+<p><a href="/login">Gå til login</a></p>
+
+</body>
+</html>

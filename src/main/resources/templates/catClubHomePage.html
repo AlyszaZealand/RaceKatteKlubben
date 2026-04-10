@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Velkommen</title>
+</head>
+<body>
+
+<h2>Velkommen, <span th:text="${loggedInUser.username}"></span></h2>
+
+<p>
+    <a href="/registerKat">Klik her for at registrere en ny kat</a>
+</p>
+
+</body>
+</html>

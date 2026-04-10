@@ -1,6 +1,8 @@
+DROP TABLE IF EXISTS kat;
+DROP TABLE IF EXISTS medlem;
 
 create table medlem(
-                       medlemID INT AUTO_INCREMENT PRIMARY KEY,
+                       id INT AUTO_INCREMENT PRIMARY KEY,  -- Rettet fra medlemID til id, så RowMapper kan finde den
                        username varchar(255),
                        password varchar(256),
                        email varchar(255),
@@ -8,12 +10,12 @@ create table medlem(
 );
 
 create table kat(
-                    katID INT AUTO_INCREMENT PRIMARY KEY,
+                    catID INT AUTO_INCREMENT PRIMARY KEY, -- Rettet fra katID til catID
                     catrace varChar(255),
                     catname varchar(255),
                     catbirthday datetime,
                     catgender varchar(255),
                     catdescription varchar(255),
-                    medlemID int,
-                    foreign key (medlemID) references medlem(medlemid) on DELETE cascade
+                    memberID int, -- Rettet fra medlemID til memberID
+                    foreign key (memberID) references medlem(id) on DELETE cascade
 );
