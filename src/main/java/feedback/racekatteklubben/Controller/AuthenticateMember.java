@@ -30,7 +30,7 @@ public class AuthenticateMember {
     @GetMapping("/register")
     public String processRegistration(Model model) {
         model.addAttribute("member", new Member());
-        return "register";
+        return "registerMember";
     }
 
     @PostMapping("/register")
@@ -40,17 +40,10 @@ public class AuthenticateMember {
 
         if (valResult.hasErrors()) {
             model.addAttribute("errors", valResult.getErrors());
-            return "register";
+            return "registerMember";
         }
 
-        boolean isCreated = memberService.registerNewMember2(newMember);
-
-        if (isCreated) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("error", "Denne e-mail er desværre allerede i brug.");
-            return "register";
-        }
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -64,16 +57,13 @@ public class AuthenticateMember {
 
         if (memberOpt.isPresent()) {
             session.setAttribute("loggedInUser", memberOpt.get());
-            return "redirect:/";
+            return "redirect:/catClubHomePage";
         }
         else {
             model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
-            return "login";
+            return "redirect:/login";
         }
     }
-
-
-
 
 
 

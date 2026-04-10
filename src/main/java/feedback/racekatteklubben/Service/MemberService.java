@@ -3,7 +3,9 @@ package feedback.racekatteklubben.Service;
 
 
 import feedback.racekatteklubben.Model.Member;
+import feedback.racekatteklubben.Model.RepoInterfaces.CatRepositoryImpl;
 import feedback.racekatteklubben.Model.RepoInterfaces.MemberRepositoryImpl;
+import feedback.racekatteklubben.Service.Validation.ValidateCat;
 import feedback.racekatteklubben.Service.Validation.ValidateMember;
 import feedback.racekatteklubben.Service.Validation.ValidationResult;
 import org.mindrot.jbcrypt.BCrypt;
@@ -18,6 +20,7 @@ public class MemberService {
     private MemberRepositoryImpl memberRepository;
     private ValidateMember validateMember;
 
+
     public MemberService(MemberRepositoryImpl memberRepository, ValidateMember validateMember) {
         this.memberRepository = memberRepository;
         this.validateMember = validateMember;
@@ -28,8 +31,30 @@ public class MemberService {
         return memberRepository.findAllMembers();
     }
 
+    public Optional<Member> getMemberByEmail(String email){
+        return memberRepository.findMemberByEmail(email);
+    }
+
+    public Optional<Member> getMemberByID(int memberID){
+        return memberRepository.findMemberByID(memberID);
+    }
+
     public void saveProfile(Member member){
         memberRepository.saveProfile(member);
+    }
+
+    public void deleteProfile(Member member){
+        memberRepository.deleteProfile(member.getMemberID());
+    }
+
+    public ValidationResult updateMemberInformation(Member member){
+        ValidationResult result = validateMember.validateRegisterMember(member);
+
+        if (result.hasErrors()){
+            return result;
+        }
+        memberRepository.updateMemberInformation(member);
+        return result;
     }
 
     public Optional<Member> loginValidation(String email, String rawPassword){
@@ -49,10 +74,6 @@ public class MemberService {
             }
         }
         return Optional.empty();
-    }
-
-    public void registerMember(Member member){
-
     }
 
     public boolean registerNewMember(Member newMember) {
@@ -80,7 +101,7 @@ public class MemberService {
 
     //____________________________________________________________________________________________
 
-
+    //Gemini eller claudes metode
     public ValidationResult registerNewMember1(Member newMember) {
 
         ValidationResult result = validateMember.validateRegisterMember(newMember);
@@ -104,19 +125,9 @@ public class MemberService {
 
         return result; // no errors = success
     }
+    //---------------------------------------------------------------------------------------------------
 
-    public boolean registerNewMember2(Member newMember) {
-        // Tjekker KUN for dubletter i databasen (Business logik)
-        if (memberRepository.findMemberByEmail(newMember.getEmail()).isPresent()) {
-            return false; // E-mailen er taget
-        }
 
-        // Hasher kode og gemmer
-        String hashedPw = BCrypt.hashpw(newMember.getPassword(), BCrypt.gensalt());
-        newMember.setPassword(hashedPw);
-        memberRepository.saveProfile(newMember);
 
-        return true;
-    }
 
 }

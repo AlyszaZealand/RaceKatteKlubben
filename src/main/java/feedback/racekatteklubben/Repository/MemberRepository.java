@@ -27,18 +27,18 @@ public class MemberRepository implements MemberRepositoryImpl {
                 rs.getString("username"),
                 rs.getString("password"),
                 rs.getString("email"),
-                rs.getString("memberDescription")
+                rs.getString("memberdescription")
         );
     };
 
     public List<Member> findAllMembers(){
-        String sql = "Select * from Member";
+        String sql = "Select * from Medlem";
 
         return jdbcTemplate.query(sql, memberRowMapper);
     }
 
     public Optional<Member> findMemberByEmail(String email) {
-        String sql = "Select * from Member where email = ?";
+        String sql = "Select * from Medlem where email = ?";
 
         try {
             Member member = jdbcTemplate.queryForObject(sql, memberRowMapper, email);
@@ -48,12 +48,12 @@ public class MemberRepository implements MemberRepositoryImpl {
         }
     }
 
-    public Optional<Member> findMemberByID(int memberId){
+    public Optional<Member> findMemberByID(int memberID){
 
-        String sql = "Select * from Member where id=?";
+        String sql = "Select * from medlem where id=?";
 
         try {
-            Member member = jdbcTemplate.queryForObject(sql, memberRowMapper, memberId);
+            Member member = jdbcTemplate.queryForObject(sql, memberRowMapper, memberID);
             return Optional.of(member);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
@@ -61,7 +61,7 @@ public class MemberRepository implements MemberRepositoryImpl {
     }
 
     public void saveProfile(Member member){
-        String sql = "Insert into Member (username,password,email,memberdescription) VALUES (?,?,?,?)";
+        String sql = "Insert into medlem (username,password,email,memberdescription) VALUES (?,?,?,?)";
 
         jdbcTemplate.update(sql,
                 member.getUsername(),
@@ -72,13 +72,13 @@ public class MemberRepository implements MemberRepositoryImpl {
     }
 
     public void deleteProfile(int memberID){
-        String sql = "DELETE from Member WHERE id =?";
+        String sql = "DELETE from medlem WHERE id =?";
 
         jdbcTemplate.update(sql, memberID);
     }
 
     public void updateMemberInformation(Member member){
-        String sql = "UPDATE Member SET username = ?, email = ?,memberdescription=? WHERE id=?";
+        String sql = "UPDATE medlem SET username = ?, email = ?,memberdescription=? WHERE id=?";
         jdbcTemplate.update(sql,
                 member.getUsername(),
                 member.getEmail(),

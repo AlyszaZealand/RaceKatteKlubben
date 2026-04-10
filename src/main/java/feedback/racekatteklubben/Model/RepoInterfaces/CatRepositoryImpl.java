@@ -7,9 +7,9 @@ import java.util.List;
 public interface CatRepositoryImpl {
     void saveCat(Cat cat);
     void updateCatInformation(Cat cat);
-    void deleteCat(Cat cat);
-    Optional<Cat> findById(int catID);
-    Optional<Cat> findByMemberId(int memberId);
+    void deleteCat(int catID);
+    Optional<Cat> findCatByID(int catID);
+    List<Cat> findCatsByMemberID(int memberId);
     List<Cat> findAllCats();
 
 }

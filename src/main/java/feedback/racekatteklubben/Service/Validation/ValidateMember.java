@@ -19,7 +19,6 @@ public class ValidateMember {
             result.addError("Du skal indtaste en  gyldig e-mailadresse (skal indholde @).");
         }
 
-
         if(member.getPassword() == null || member.getPassword().trim().isEmpty()){
             result.addError("Du skal indtaste et password");
         }
