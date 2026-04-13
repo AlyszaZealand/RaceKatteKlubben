@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Velkommen</title>
+</head>
+<body>
+
+<h1>Velkommen, <span th:text="${loggedInUser.username}"></span></h1>
+
+<p>
+    <a href="/registerKat">Klik her for at registrere en ny kat</a><br><br>
+    <a href="/editProfile">Rediger profil</a>
+</p>
+
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Race</th>
+        <th>Fødselsdag</th>
+        <th>Køn</th>
+        <th>Beskrivelse</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cat : ${cats}">
+        <td th:text="${cat.catName}"></td>
+        <td th:text="${cat.catRace}"></td>
+        <td th:text="${cat.catBirthday}"></td>
+        <td th:text="${cat.catGender}"></td>
+        <td th:text="${cat.catDescription}"></td>
+        <td>
+            <a th:href="@{/edit/{id}(id=${cat.catID})}">Rediger Kat</a>
+
+            <form th:action="@{/delete/{id}(id=${cat.catID})}" method="post" style="display:inline;">
+                <button type="submit">Slet</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/">Gå til forside</a><br>
+
+</body>
+</html>

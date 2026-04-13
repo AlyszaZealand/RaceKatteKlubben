@@ -57,7 +57,7 @@ public class AuthenticateMember {
 
         if (memberOpt.isPresent()) {
             session.setAttribute("loggedInUser", memberOpt.get());
-            return "redirect:/catClubHomePage";
+            return "redirect:/myProfile";
         }
         else {
             model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
@@ -65,22 +65,7 @@ public class AuthenticateMember {
         }
     }
 
-    @GetMapping("/catClubHomePage")
-    public String showHomePage(HttpSession session, Model model) {
 
-        // 1. Hent brugeren op fra sessionen
-        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
-
-        // 2. Sikkerhed: Er de overhovedet logget ind? Ellers ryg tilbage til login!
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-
-        // 3. Giv bruger-objektet til Thymeleaf HTML-siden
-        model.addAttribute("loggedInUser", loggedInUser);
-
-        return "catClubHomePage";
-    }
 
 
 

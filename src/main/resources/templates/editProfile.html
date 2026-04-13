@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rediger profil</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Rediger profil</h2>
+
+<div th:if="${errors != null}">
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+
+<div th:if="${errors != null}">
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}" style="color: red;"></li>
+    </ul>
+</div>
+
+<form th:action="@{/editProfile/{id}(id=${editMember.memberID})}" method="post" th:object="${editMember}">
+
+    <label>Navn:</label><br>
+    <input type="text" th:field="*{username}" required><br><br>
+
+    <label>E-mail:</label><br>
+    <input type="email" th:field="*{email}" required><br><br>
+
+    <label style="color: red">Password:</label><br>
+
+    <input type="password" th:field="*{password}" required ><br><br>
+
+    <label>Beskrivelse af dig:</label><br>
+    <textarea th:field="*{memberDescription}" rows="3"></textarea><br><br>
+
+    <button type="submit">Gem ændringer</button>
+</form>
+
+<p><a href="/myProfile">Gå til profil</a></p>
+
+</body>
+</html>

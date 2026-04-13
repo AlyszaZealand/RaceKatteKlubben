@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Katte liste</title>
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Billede</th>
+            <th>Navn</th>
+            <th>Race</th>
+            <th>Fødselsdag</th>
+            <th>Køn</th>
+            <th>Beskrivelse</th>
+            <th>Ejeren</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cat : ${cats}">
+            <td>
+                <img th:if="${cat.imageName != null}"
+                     th:src="${cat.imageName}"
+                     alt="KatteBillede"
+                     width="100">
+                <!-- Valgfrit: Vis noget hvis der ikke er billede -->
+                <span th:unless="${cat.imageName}">-</span>
+            </td>
+            <td th:text="${cat.catName}"></td>
+            <td th:text="${cat.catRace}"></td>
+            <td th:text="${cat.catBirthday}"></td>
+            <td th:text="${cat.catGender}"></td>
+            <td th:text="${cat.catDescription}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <a href="/">Gå til forside</a><br>
+
+</body>
+</html>

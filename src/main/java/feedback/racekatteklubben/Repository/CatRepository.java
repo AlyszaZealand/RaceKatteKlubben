@@ -28,39 +28,41 @@ public class CatRepository implements CatRepositoryImpl {
                 rs.getObject("catBirthday", LocalDate.class),
                 rs.getString("catGender"),
                 rs.getString("catDescription"),
-                rs.getInt("memberID")
+                rs.getInt("memberID"),
+                rs.getString("imageName")
         );
     };
 
 
     public void saveCat(Cat cat){
-        String sql = "INSERT into kat (catrace, catname, catbirthday,catgender,catdescription, memberID) values (?,?,?,?,?,?)";
+        String sql = "INSERT into kat (catrace, catname, catbirthday,catgender,catdescription, memberID,imageName) values (?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql,
                 cat.getCatRace(),
                 cat.getCatName(),
                 cat.getCatBirthday(),
                 cat.getCatGender(),
                 cat.getCatDescription(),
-                cat.getMemberID()
+                cat.getMemberID(),
+                cat.getImageName()
         );
 
     }
 
     public void updateCatInformation(Cat cat){
-        String sql = "UPDATE kat set catname = ?, catbirthday = ?, catgender = ?, catdescription = ? where catID = ?";
+        String sql = "UPDATE kat set catname = ?, catbirthday = ?, catgender = ?, catdescription = ?, imageName = ? where catID = ?";
 
         jdbcTemplate.update(sql,
                 cat.getCatName(),
                 cat.getCatBirthday(),
                 cat.getCatGender(),
                 cat.getCatDescription(),
-                cat.getCatID(),
-                cat.getMemberID()
+                cat.getImageName(),
+                cat.getCatID()
         );
     }
 
     public void deleteCat(int catID){
-        String sql = "DELETE from kat WHERE ID = ?";
+        String sql = "DELETE from kat WHERE catID = ?";
 
         jdbcTemplate.update(sql,catID);
     }

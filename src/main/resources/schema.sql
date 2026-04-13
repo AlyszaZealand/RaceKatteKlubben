@@ -16,6 +16,8 @@ create table kat(
                     catbirthday datetime,
                     catgender varchar(255),
                     catdescription varchar(255),
+                    imageName LONGTEXT,
                     memberID int, -- Rettet fra medlemID til memberID
                     foreign key (memberID) references medlem(id) on DELETE cascade
 );
+

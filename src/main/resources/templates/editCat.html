@@ -2,11 +2,11 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registrer Kat</title>
+    <title>Redigere Kat</title>
 </head>
 <body>
 
-<h2>Opret ny Katte profil</h2>
+<h2>Rediger Kat</h2>
 
 <div th:if="${errors != null}">
     <ul>
@@ -14,7 +14,10 @@
     </ul>
 </div>
 
-<form action="/registerKat" method="post" th:object="${cat}">
+<form th:action="@{/editCat/{id}(id=${editCat.catID})}"
+      method="post"
+      th:object="${editCat}"
+      enctype="multipart/form-data">
 
     <label>Katte navn:</label><br>
     <input type="text" th:field="*{catName}"><br><br>
@@ -23,8 +26,9 @@
     <p>Sibirisk-Kat</p>
     <input type="hidden" th:field="*{catRace}"><br><br>
 
-    <label>Fødselsdato:</label><br>
-    <input type="date" th:field="*{catBirthday}"><br><br>
+    <input type="date"
+           name="catBirthday"
+           th:value="${editCat.catBirthday}"><br><br>
 
     <label>Køn:</label><br>
     <select th:field="*{catGender}">
@@ -38,12 +42,19 @@
     <label>Billede:</label><br>
     <input type="file" name="image" accept="image/*"><br><br>
 
-    <button type="submit">Opret</button>
+    <!-- Show current image if exists -->
+    <img th:if="${editCat.imageName != null}"
+         th:src="${editCat.imageName}"
+         width="150"><br><br>
+
+    <button type="submit">Gem</button>
+
+    <input type="hidden" th:field="*{memberID}">
+
 
 </form>
 
 <p><a href="/myProfile">Gå til profil</a></p>
-
 
 </body>
 </html>

@@ -33,6 +33,7 @@ public class CatService {
         return result;
     }
 
+
     public ValidationResult registerNewCat(Cat newCat){
         ValidationResult result = validateCat.validateRegisterCat(newCat);
 
@@ -43,6 +44,8 @@ public class CatService {
         catRepository.saveCat(newCat);
         return result;
     }
+
+
 
     public List<Cat> getCatsForMember(int memberID){
         return catRepository.findCatsByMemberID(memberID);

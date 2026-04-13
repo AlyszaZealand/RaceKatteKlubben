@@ -11,6 +11,7 @@ import feedback.racekatteklubben.Service.Validation.ValidationResult;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,17 +20,28 @@ public class MemberService {
 
     private MemberRepositoryImpl memberRepository;
     private ValidateMember validateMember;
+    private CatRepositoryImpl catRepository;
 
 
-    public MemberService(MemberRepositoryImpl memberRepository, ValidateMember validateMember) {
+    public MemberService(MemberRepositoryImpl memberRepository, ValidateMember validateMember, CatRepositoryImpl catRepository) {
         this.memberRepository = memberRepository;
         this.validateMember = validateMember;
+        this.catRepository = catRepository;
     }
 
 
     public List<Member> getAllMembers(){
-        return memberRepository.findAllMembers();
+
+        List<Member> members = memberRepository.findAllMembers();
+
+        for(Member member : members){
+            member.setCatList(catRepository.findCatsByMemberID(member.getMemberID()));
+        }
+
+        return members;
     }
+
+
 
     public Optional<Member> getMemberByEmail(String email){
         return memberRepository.findMemberByEmail(email);

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Medlemsliste</title>
+</head>
+<body>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Email</th>
+        <th>Beskrivelse</th>
+        <th>Katte</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.username}"></td>
+        <td th:text="${member.email}"></td>
+        <td th:text="${member.memberDescription}"></td>
+        <td>
+
+            <ul>
+                <li th:each="cat : ${member.catList}">
+                    <a th:href="@{/CatProfile/{id}(id=${cat.catID})}">
+                        <!-- Small thumbnail if image exists -->
+                        <img th:if="${cat.imageName != null}"
+                             th:src="${cat.imageName}"
+                             width="40" height="40"
+                             style="border-radius: 50%; object-fit: cover; margin-right: 8px; vertical-align: middle;">
+
+                        <!-- Placeholder if no image -->
+                        <span th:if="${cat.imageName == null}"
+                              style="display:inline-block; width:40px; height:40px; background:#ccc; border-radius:50%; margin-right:8px; vertical-align:middle;">
+                        </span>
+
+                        <span th:text="${cat.catName} + ' (' + ${cat.catRace} + ')'"></span>
+                    </a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a href="/">Gå til forside</a><br>
+
+</body>
+</html>
+
+<!--<li th:each="cat : ${member.catList}">-->
+<!--    <a th:href="@{/CatProfile/{id}(id=${cat.catID})}"-->
+<!--       th:text=" + ${cat.catName} + ' (' + ${cat.catRace} + ')'">-->
+<!--    </a>-->
+<!--</li>-->
