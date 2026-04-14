@@ -34,9 +34,6 @@ public class Homepage {
         return "memberList";
     }
 
-
-
-
     @GetMapping("CatList")
     public String catListPage(Model model) {
         List<Cat> cats = catService.getAllCats();
@@ -45,7 +42,10 @@ public class Homepage {
     }
 
 
-
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
 
 
 }

@@ -5,13 +5,11 @@ package feedback.racekatteklubben.Service;
 import feedback.racekatteklubben.Model.Member;
 import feedback.racekatteklubben.Model.RepoInterfaces.CatRepositoryImpl;
 import feedback.racekatteklubben.Model.RepoInterfaces.MemberRepositoryImpl;
-import feedback.racekatteklubben.Service.Validation.ValidateCat;
 import feedback.racekatteklubben.Service.Validation.ValidateMember;
 import feedback.racekatteklubben.Service.Validation.ValidationResult;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,12 +58,42 @@ public class MemberService {
     }
 
     public ValidationResult updateMemberInformation(Member member){
-        ValidationResult result = validateMember.validateRegisterMember(member);
+        ValidationResult result = validateMember.validateUpdateMember(member);
 
         if (result.hasErrors()){
             return result;
         }
         memberRepository.updateMemberInformation(member);
+        return result;
+    }
+
+    public ValidationResult updateMemberPassword(Member member, String currentPassword, String newPassword, String confirmPassword) {
+        ValidationResult result = new ValidationResult();
+
+        //Ryke til validateMember som sin egen metode
+        // 1. Check current password is correct
+        if (!BCrypt.checkpw(currentPassword, member.getPassword())) {
+            result.addError("Det nuværende password er forkert");
+            return result;
+        }
+
+        // 2. Check new passwords match
+        if (!newPassword.equals(confirmPassword)) {
+            result.addError("De nye passwords matcher ikke");
+            return result;
+        }
+
+        // 3. Check new password length
+        if (newPassword == null || newPassword.length() < 6) {
+            result.addError("Det nye password skal være mindst 6 tegn langt");
+            return result;
+        }
+
+        // 4. Hash and save
+        String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        member.setPassword(hashedPassword);
+        memberRepository.updateMemberPassword(member);
+
         return result;
     }
 
@@ -88,33 +116,8 @@ public class MemberService {
         return Optional.empty();
     }
 
-    public boolean registerNewMember(Member newMember) {
 
-        // 1. Tjek om e-mailen allerede findes i databasen
-        Optional<Member> existingMember = memberRepository.findMemberByEmail(newMember.getEmail());
-
-        // Hvis email IKKE er tom, betyder det, at e-mailen allerede er taget!
-        if (existingMember.isPresent()) {
-            return false; // Afbryd oprettelsen
-        }
-
-        if(!validateMember.validateRegisterMember(newMember).hasErrors()){
-            // 2. Hvis vi når herned, er e-mailen ledig. Nu kan vi hashe koden!
-            String hashedPassword = BCrypt.hashpw(newMember.getPassword(), BCrypt.gensalt());
-            newMember.setPassword(hashedPassword);
-
-            // 3. Gem det nye medlem i databasen
-            memberRepository.saveProfile(newMember);
-            return true; // Oprettelsen var en succes
-        }
-
-        return false; // Oprettelsen var en succes
-    }
-
-    //____________________________________________________________________________________________
-
-    //Gemini eller claudes metode
-    public ValidationResult registerNewMember1(Member newMember) {
+    public ValidationResult registerNewMember(Member newMember) {
 
         ValidationResult result = validateMember.validateRegisterMember(newMember);
 

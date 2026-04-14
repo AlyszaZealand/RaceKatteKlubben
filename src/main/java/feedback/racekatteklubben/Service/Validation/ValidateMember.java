@@ -28,4 +28,17 @@ public class ValidateMember {
         }
         return result;
     }
+
+    public ValidationResult validateUpdateMember(Member member){
+        ValidationResult result = new ValidationResult();
+
+        if(member.getUsername() == null || member.getUsername().trim().isEmpty()){
+            result.addError("Du skal indtaste et navn");
+        }
+
+        if(member.getEmail() == null || !member.getEmail().contains("@")){
+            result.addError("Du skal indtaste en  gyldig e-mailadresse (skal indholde @).");
+        }
+        return result;
+    }
 }

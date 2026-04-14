@@ -10,12 +10,6 @@
 
 <div th:if="${errors != null}">
     <ul>
-        <li th:each="error : ${errors}" th:text="${error}"></li>
-    </ul>
-</div>
-
-<div th:if="${errors != null}">
-    <ul>
         <li th:each="error : ${errors}" th:text="${error}" style="color: red;"></li>
     </ul>
 </div>
@@ -28,14 +22,14 @@
     <label>E-mail:</label><br>
     <input type="email" th:field="*{email}" required><br><br>
 
-    <label style="color: red">Password:</label><br>
-
-    <input type="password" th:field="*{password}" required ><br><br>
 
     <label>Beskrivelse af dig:</label><br>
     <textarea th:field="*{memberDescription}" rows="3"></textarea><br><br>
 
     <button type="submit">Gem ændringer</button>
+    <a href="/updatePassword">Ændre password</a><br><br>
+
+
 </form>
 
 <p><a href="/myProfile">Gå til profil</a></p>

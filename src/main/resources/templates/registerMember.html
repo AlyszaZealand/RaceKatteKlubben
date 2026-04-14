@@ -10,13 +10,10 @@
 
 <div th:if="${errors != null}">
     <ul>
-        <li th:each="error : ${errors}" th:text="${error}"></li>
+        <li th:each="error : ${errors}" th:text="${error}" style="color: red"></li>
     </ul>
 </div>
 
-<div th:if="${error != null}">
-    <p th:text="${error}"></p>
-</div>
 
 <form action="/register" method="post">
     <label>Navn:</label><br>

@@ -85,4 +85,12 @@ public class MemberRepository implements MemberRepositoryImpl {
         );
     }
 
+    public void updateMemberPassword(Member member){
+        String sql = "UPDATE medlem SET password = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                member.getPassword(),
+                member.getMemberID()
+        );
+    }
+
 }

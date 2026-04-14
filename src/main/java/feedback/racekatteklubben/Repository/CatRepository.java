@@ -34,6 +34,8 @@ public class CatRepository implements CatRepositoryImpl {
     };
 
 
+
+
     public void saveCat(Cat cat){
         String sql = "INSERT into kat (catrace, catname, catbirthday,catgender,catdescription, memberID,imageName) values (?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql,
@@ -84,10 +86,12 @@ public class CatRepository implements CatRepositoryImpl {
         return jdbcTemplate.query(sql, catRowMapper, memberID);
     }
 
-    public List<Cat> findAllCats(){
+    public List<Cat> findAllCats() {
         String sql = "Select * from Kat";
 
         return jdbcTemplate.query(sql, catRowMapper);
     }
+
+
 
 }

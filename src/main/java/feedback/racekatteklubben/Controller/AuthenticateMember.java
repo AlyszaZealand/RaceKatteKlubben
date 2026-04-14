@@ -36,11 +36,11 @@ public class AuthenticateMember {
     @PostMapping("/register")
     public String processRegistration(@ModelAttribute Member newMember, Model model) {
 
-        ValidationResult result = memberService.registerNewMember1(newMember);
+        ValidationResult result = memberService.registerNewMember(newMember);
 
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getErrors());
-            return "registerMember";
+            return "/registerMember";
         }
 
         return "redirect:/login";
@@ -61,12 +61,9 @@ public class AuthenticateMember {
         }
         else {
             model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
-            return "redirect:/login";
+            return "/login";
         }
     }
-
-
-
 
 
 

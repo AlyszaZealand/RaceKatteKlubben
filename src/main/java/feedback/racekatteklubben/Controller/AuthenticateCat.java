@@ -52,13 +52,6 @@ public class AuthenticateCat {
 
         cat.setMemberID(loggedInUser.getMemberID());
 
-        // Validering som måske rykkes
-        if (image != null && !image.isEmpty()) {
-            String base64 = Base64.getEncoder().encodeToString(image.getBytes());
-            String mimeType = image.getContentType();
-            cat.setImageName("data:" + mimeType + ";base64," + base64);
-        }
-
         ValidationResult valResult = validateCat.validateRegisterCat(cat);
 
         if(valResult.hasErrors()){
@@ -67,7 +60,7 @@ public class AuthenticateCat {
             return "registerCat";
         }
 
-        catService.registerNewCat(cat);
+        catService.registerNewCat(cat, image);
 
         return "redirect:/myProfile";
     }

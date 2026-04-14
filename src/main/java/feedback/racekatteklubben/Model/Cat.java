@@ -2,6 +2,8 @@ package feedback.racekatteklubben.Model;
 
 import java.time.LocalDate;
 
+import java.time.Period;
+
 public class Cat {
     private String imageName;
     private int catID;
@@ -12,7 +14,9 @@ public class Cat {
     private String catDescription;
     private int memberID;
 
+
     public Cat(){}
+
 
     public Cat(int catID, String catRace, String catName, LocalDate catBirthday, String catGender, String catDescription,  int memberID, String imageName) {
         this.catID = catID;
@@ -77,14 +81,23 @@ public class Cat {
     public int getMemberID() {
         return memberID;
     }
+
     public void setMemberID(int memberID) {
         this.memberID = memberID;
     }
+
     public String getImageName() {
         return this.imageName;
     }
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
+
+    // calculate age, sent from domain to html
+    public int getAge(){
+       return Period.between(getCatBirthday(),LocalDate.now()).getYears();
+    }
+
+
 
 }

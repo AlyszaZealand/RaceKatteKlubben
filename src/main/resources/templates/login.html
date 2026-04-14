@@ -9,7 +9,7 @@
 <h2>Log ind</h2>
 
 <div th:if="${error != null}">
-    <p th:text="${error}"></p>
+    <p th:text="${error}" style="color: red"></p>
 </div>
 
 <form action="/login" method="post">

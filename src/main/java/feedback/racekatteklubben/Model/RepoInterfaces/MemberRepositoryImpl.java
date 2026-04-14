@@ -14,5 +14,6 @@ public interface MemberRepositoryImpl {
     List<Member> findAllMembers();
     Optional<Member> findMemberByEmail(String email);
     Optional<Member> findMemberByID(int memberID);
+    void updateMemberPassword(Member member);
 
 }

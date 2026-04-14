@@ -6,14 +6,12 @@ import feedback.racekatteklubben.Service.CatService;
 import feedback.racekatteklubben.Service.MemberService;
 import feedback.racekatteklubben.Service.Validation.ValidationResult;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,15 +65,6 @@ public class MyProfile {
         return "editCat";
     }
 
-
-//    @PostMapping("/editCat/{id}")
-//    public String updateCat(@PathVariable int id, @ModelAttribute Cat editCat) {
-//        editCat.setCatID(id); // force set the ID from the URL, not the form
-//
-//        catService.updateCatInformation(editCat);
-//        return "redirect:/myProfile";
-//    }
-
     @GetMapping("/editProfile")
     public String showEditProfile(HttpSession session, Model model) {
 
@@ -99,6 +88,7 @@ public class MyProfile {
 
         // 2. Send til Servicen og tjek for valideringsfejl (f.eks. tomt navn)
         ValidationResult result = memberService.updateMemberInformation(editMember);
+
         //TODO Global error måske?.
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getErrors());
@@ -118,7 +108,43 @@ public class MyProfile {
         return "redirect:/myProfile";
     }
 
+    @GetMapping("/updatePassword")
+    public String updatePassword(HttpSession session, Model model) {
+        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
 
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("editMember", loggedInUser);
+        return "updatePassword";
+    }
+
+    @PostMapping("/updatePassword/{id}")
+    public String handleUpdatePassword(@PathVariable int id,
+                                       @RequestParam String currentPassword,
+                                       @RequestParam String newPassword,
+                                       @RequestParam String confirmPassword,
+                                       HttpSession session,
+                                       Model model) {
+
+        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
+        loggedInUser.setMemberID(id);
+
+        ValidationResult result = memberService.updateMemberPassword(loggedInUser, currentPassword, newPassword, confirmPassword);
+
+        if (result.hasErrors()) {
+            model.addAttribute("errors", result.getErrors());
+            model.addAttribute("editMember", loggedInUser);
+            return "updatePassword";
+        }
+
+        Optional<Member> updatedMember = memberService.getMemberByID(id);
+        if (updatedMember.isPresent()) {
+            session.setAttribute("loggedInUser", updatedMember.get());
+        }
+
+        return "redirect:/myProfile";
+    }
 
 
 
@@ -132,20 +158,7 @@ public class MyProfile {
 
         editCat.setCatID(id);
 
-        if (image != null && !image.isEmpty()) {
-            // Convert to Base64 and store directly in DB
-            String base64 = Base64.getEncoder().encodeToString(image.getBytes());
-            String mimeType = image.getContentType();
-            editCat.setImageName("data:" + mimeType + ";base64," + base64);
-        } else {
-            // Keep existing image if no new one uploaded
-            Cat existing = catService.getCatByID(id).orElse(null);
-            if (existing != null) {
-                editCat.setImageName(existing.getImageName());
-            }
-        }
-
-        ValidationResult result = catService.updateCatInformation(editCat);
+        ValidationResult result = catService.updateCatInformation(editCat, image);
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getErrors());
             model.addAttribute("editCat", editCat);
@@ -154,4 +167,12 @@ public class MyProfile {
 
         return "redirect:/myProfile";
     }
+
+    @PostMapping("/logout")
+    public String handleLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
 }

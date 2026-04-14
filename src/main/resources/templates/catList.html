@@ -6,6 +6,7 @@
 </head>
 <body>
 
+
     <table border="1">
         <thead>
         <tr>
@@ -15,7 +16,6 @@
             <th>Fødselsdag</th>
             <th>Køn</th>
             <th>Beskrivelse</th>
-            <th>Ejeren</th>
         </tr>
         </thead>
         <tbody>
@@ -28,7 +28,8 @@
                 <!-- Valgfrit: Vis noget hvis der ikke er billede -->
                 <span th:unless="${cat.imageName}">-</span>
             </td>
-            <td th:text="${cat.catName}"></td>
+            <td th:text="${cat.catName}">
+            </td>
             <td th:text="${cat.catRace}"></td>
             <td th:text="${cat.catBirthday}"></td>
             <td th:text="${cat.catGender}"></td>

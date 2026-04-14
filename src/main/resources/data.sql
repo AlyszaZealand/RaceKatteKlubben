@@ -9,7 +9,7 @@ INSERT INTO kat (catrace, catname, catbirthday, catgender, catdescription, membe
                                                                                          ('Siamese',      'Luna',   '2022-07-22', 'Hun', 'Elegant Siamese med blå øjne',               1),
                                                                                          ('Bengal',       'Tiger',  '2020-11-05', 'Han', 'Vild Bengal kat med flot plettet mønster',   1);
 
--- Cats for Bjarne (memberID = 2)
+-- Cats for Bob (memberID = 2)
 INSERT INTO kat (catrace, catname, catbirthday, catgender, catdescription, memberID) VALUES
                                                                                          ('Persian',      'Snehvid', '2021-06-10', 'Hun', 'Blød og rolig Persisk kat med hvid pels',  2),
                                                                                          ('Scottish Fold','Øre',     '2023-01-18', 'Han', 'Sød Scottish Fold med foldede ører',       2),
