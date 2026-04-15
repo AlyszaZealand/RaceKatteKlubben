@@ -51,7 +51,7 @@
 <h3>Alle tilmeldte katte:</h3>
 <ul th:if="${attendingCats != null}">
     <li th:each="attendingCat : ${attendingCats}">
-        <strong th:text="${attendingCat.catName}"></strong> <span th:text="'(' + ${attendingCat.catRace} + ')'"></span>
+        <strong th:text="${attendingCat.catName}"></strong> <span th:text="'(' + ${attendingCat.calculateCatAge()} + ' år gammel)'"></span>
     </li>
 </ul>
 <p th:if="${attendingCats == null || attendingCats.isEmpty()}">Der er ingen katte tilmeldt endnu.</p>

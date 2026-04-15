@@ -17,8 +17,10 @@ public class Member{
     public Member(int memberID, String username, String password, String email,  String memberDescription) {
         this.memberID = memberID;
         this.username = username;
-        setPassword(password);
-        setEmail(email);
+        validatePassword(password);
+        this.password = password;
+        validateEmail(email);
+        this.email = email;
         this.memberDescription = memberDescription;
         this.catList = new ArrayList<>();
     }
@@ -26,20 +28,14 @@ public class Member{
     public void setUsername(String username){
         this.username = username;
     }
+
     public void setPassword(String password){
-        if(getPassword() == null || getPassword().trim().isEmpty()){
-            throw new IllegalArgumentException("Du skal indtaste et password");
-        }
-        else if(getPassword().length() < 6){
-            throw new IllegalArgumentException("Dit password skal være mindst 6 tegn langt");
-        }
+        validatePassword(password);
         this.password = password;
     }
 
     public void setEmail(String email){
-        if (email == null || !email.contains("@")) {
-            throw new IllegalArgumentException("E-mailen skal indeholde et '@' og være gyldig.");
-        }
+        validateEmail(email);
         this.email = email;
     }
     public void setCatList(List<Cat> catList){
@@ -76,4 +72,18 @@ public class Member{
         catList.remove(cat);
     }
 
+    private void validatePassword(String newPassword){
+        if(newPassword == null || getPassword().trim().isEmpty()){
+            throw new IllegalArgumentException("Du skal indtaste et password");
+        }
+        else if(newPassword.length() < 6){
+            throw new IllegalArgumentException("Dit password skal være mindst 6 tegn langt");
+        }
+    }
+
+    private void validateEmail(String newEmail){
+        if (newEmail == null || !newEmail.contains("@")) {
+            throw new IllegalArgumentException("E-mailen skal indeholde et '@' og være gyldig.");
+        }
+    }
 }

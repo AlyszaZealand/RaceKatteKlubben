@@ -11,8 +11,8 @@ public class ValidateEvent {
     public ValidationResult validateEvent(Event event) {
         ValidationResult result = new ValidationResult();
 
-        if (event.getEventID() <= 0) {
-            result.addError("Udstillings ID skal være et positivt heltal.");
+        if (event.getEventName().length() < 5) {
+            result.addError("Udstillings Navn skal være mindst '5' tegn");
         }
 
         if (event.getEventDescription() == null || event.getEventDescription().trim().length() < 5) {

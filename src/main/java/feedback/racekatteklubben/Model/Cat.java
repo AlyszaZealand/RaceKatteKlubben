@@ -19,11 +19,14 @@ public class Cat {
 
 
     public Cat(int catID, String catRace, String catName, LocalDate catBirthday, String catGender, String catDescription,  int memberID, String imageName) {
+        validateCatBirthday(catBirthday);
+        validateCatGender(catGender);
+        validateCatName(catName);
         this.catID = catID;
         this.catRace = "sibirisk-kat";
-        setCatName(catName);
-        setCatBirthday(catBirthday);
-        setCatGender(catGender);
+        this.catName = catName;
+        this.catBirthday = catBirthday;
+        this.catGender = catGender;
         this.catDescription = catDescription;
         this.memberID = memberID;
         this.imageName = imageName;
@@ -51,9 +54,7 @@ public class Cat {
     }
 
     public void setCatName(String catName) {
-        if (catName == null || catName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Kattens navn må ikke være tomt.");
-        }
+        validateCatName(catName);
         this.catName = catName;
     }
 
@@ -62,20 +63,17 @@ public class Cat {
     }
 
     public void setCatBirthday(LocalDate catBirthday) {
-        if (catBirthday != null && catBirthday.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("En kat kan ikke være født i fremtiden.");
-        }
+        validateCatBirthday(catBirthday);
         this.catBirthday = catBirthday;
     }
+
 
     public String getCatGender() {
         return catGender;
     }
 
     public void setCatGender(String catGender) {
-        if (catGender == null || (!catGender.trim().equals("Han") && !catGender.trim().equals("Hun"))) {
-            throw new IllegalArgumentException("Kattens køn skal være enten 'Han' eller 'Hun'.");
-        }
+        validateCatGender(catGender);
         this.catGender = catGender;
     }
 
@@ -108,5 +106,20 @@ public class Cat {
     }
 
 
+    private void validateCatGender(String newCatGender){
+        if (newCatGender == null || (!newCatGender.trim().equals("Han") && !newCatGender.trim().equals("Hun"))) {
+            throw new IllegalArgumentException("Kattens køn skal være enten 'Han' eller 'Hun'.");
+        }
+    }
 
+    private void validateCatName(String newCatName){
+        if (newCatName == null || newCatName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Kattens navn må ikke være tomt.");
+        }
+    }
+    private void validateCatBirthday(LocalDate newCatBirthday){
+        if (newCatBirthday != null && newCatBirthday.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("En kat kan ikke være født i fremtiden.");
+        }
+    }
 }

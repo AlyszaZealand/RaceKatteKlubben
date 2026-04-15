@@ -9,10 +9,7 @@ import feedback.racekatteklubben.Service.Validation.ValidationResult;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,22 +27,24 @@ public class EventController {
 
     @GetMapping("/registerEvent")
     public String showEventForm(Model model,HttpSession session) {
-        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/login"; // Man skal være logget ind for at tilmelde katte
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";// Man skal være logget ind for at tilmelde katte
         }
         model.addAttribute("event", new Event());
         return "registerEvent";
     }
 
     @PostMapping("/registerEvent")
-    public String handleEventForm(@ModelAttribute Event newEvent, Model model){
-
+    public String handleEventForm(@ModelAttribute Event newEvent, Model model, HttpSession session){
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
         ValidationResult result = eventService.createEvent(newEvent);
 
         if(result.hasErrors()){
             model.addAttribute("errors", result.getErrors());
-            return "redirect:/registerEvent";
+            model.addAttribute("event", newEvent);
+            return "/registerEvent";
         }
 
         return "redirect:/";
@@ -54,27 +53,51 @@ public class EventController {
 
     @GetMapping("/events/{id}")
     public String showEventDetails(@PathVariable int id, HttpSession session, Model model) {
-        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/login"; // Man skal være logget ind for at tilmelde katte
+
+        // 1. DØRMANDEN: Smid gæster væk med det samme!
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
         }
 
         Optional<Event> eventOpt = eventService.getEventByID(id);
         if (eventOpt.isEmpty()) {
-            return "redirect:/events"; // Event findes ikke
+            return "redirect:/";
         }
 
-        // Hent brugerens egne katte
+        // 2. HENT ALT DATA (Vi ved nu, at brugeren er logget ind)
+        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
+        List<Cat> attendingCats = catService.getCatsForEvent(id);
         List<Cat> myCats = catService.getCatsForMember(loggedInUser.getMemberID());
-
-        // Hent ID'er på de katte, der allerede ER tilmeldt dette event
         List<Integer> signedUpCatIds = eventService.getSignedUpCatsIDs(id);
 
+        // 3. GIV ALT DATA TIL HTML PÅ ÉN GANG
         model.addAttribute("event", eventOpt.get());
+        model.addAttribute("attendingCats", attendingCats);
         model.addAttribute("myCats", myCats);
         model.addAttribute("signedUpCatIds", signedUpCatIds);
 
-        return "eventSignup"; // Kræver en eventSignup.html fil
+        return "eventSignup";
+    }
+
+
+    @PostMapping("/events/signup")
+    public String signupCat(@RequestParam int eventID, @RequestParam int catID, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        eventService.signUpForEvent(eventID, catID);
+        return "redirect:/events/" + eventID;
+    }
+
+    @PostMapping("/events/remove")
+    public String removeCat(@RequestParam int eventID, @RequestParam int catID, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        eventService.removeSignUp(eventID, catID);
+        return "redirect:/events/" + eventID;
     }
 
 }
