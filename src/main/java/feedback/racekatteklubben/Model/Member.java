@@ -73,7 +73,7 @@ public class Member{
     }
 
     private void validatePassword(String newPassword){
-        if(newPassword == null || getPassword().trim().isEmpty()){
+        if(newPassword == null || newPassword.trim().isEmpty()){
             throw new IllegalArgumentException("Du skal indtaste et password");
         }
         else if(newPassword.length() < 6){
