@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Cat {
-    private String imageName;
     private int catID;
     private String catRace = "Sibirisk-Kat";
     private String catName;
@@ -13,6 +12,7 @@ public class Cat {
     private String catGender;
     private String catDescription;
     private int memberID;
+    private String imageName;
 
 
     public Cat(){}
@@ -21,9 +21,9 @@ public class Cat {
     public Cat(int catID, String catRace, String catName, LocalDate catBirthday, String catGender, String catDescription,  int memberID, String imageName) {
         this.catID = catID;
         this.catRace = "sibirisk-kat";
-        this.catName = catName;
-        this.catBirthday = catBirthday;
-        this.catGender = catGender;
+        setCatName(catName);
+        setCatBirthday(catBirthday);
+        setCatGender(catGender);
         this.catDescription = catDescription;
         this.memberID = memberID;
         this.imageName = imageName;
@@ -51,6 +51,9 @@ public class Cat {
     }
 
     public void setCatName(String catName) {
+        if (catName == null || catName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Kattens navn må ikke være tomt.");
+        }
         this.catName = catName;
     }
 
@@ -59,6 +62,9 @@ public class Cat {
     }
 
     public void setCatBirthday(LocalDate catBirthday) {
+        if (catBirthday != null && catBirthday.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("En kat kan ikke være født i fremtiden.");
+        }
         this.catBirthday = catBirthday;
     }
 
@@ -67,6 +73,9 @@ public class Cat {
     }
 
     public void setCatGender(String catGender) {
+        if (catGender == null || (!catGender.trim().equals("Han") && !catGender.trim().equals("Hun"))) {
+            throw new IllegalArgumentException("Kattens køn skal være enten 'Han' eller 'Hun'.");
+        }
         this.catGender = catGender;
     }
 
@@ -94,7 +103,7 @@ public class Cat {
     }
 
     // calculate age, sent from domain to html
-    public int getAge(){
+    public int calculateCatAge(){
        return Period.between(getCatBirthday(),LocalDate.now()).getYears();
     }
 

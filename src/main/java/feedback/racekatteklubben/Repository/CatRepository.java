@@ -92,6 +92,14 @@ public class CatRepository implements CatRepositoryImpl {
         return jdbcTemplate.query(sql, catRowMapper);
     }
 
+    public List<Cat> findCatsByEventID(int eventID) {
+        String sql = "SELECT kat.* FROM kat " +
+                "JOIN kat_event ON kat.catID = kat_event.catID " +
+                "WHERE kat_event.eventID = ?";
+
+        return jdbcTemplate.query(sql, catRowMapper, eventID);
+    }
+
 
 
 }

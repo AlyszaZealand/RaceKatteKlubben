@@ -11,4 +11,5 @@ public interface CatRepositoryImpl {
     Optional<Cat> findCatByID(int catID);
     List<Cat> findCatsByMemberID(int memberId);
     List<Cat> findAllCats();
+    List<Cat> findCatsByEventID(int eventID);
 }

@@ -17,8 +17,8 @@ public class Member{
     public Member(int memberID, String username, String password, String email,  String memberDescription) {
         this.memberID = memberID;
         this.username = username;
-        this.password = password;
-        this.email = email;
+        setPassword(password);
+        setEmail(email);
         this.memberDescription = memberDescription;
         this.catList = new ArrayList<>();
     }
@@ -27,10 +27,19 @@ public class Member{
         this.username = username;
     }
     public void setPassword(String password){
+        if(getPassword() == null || getPassword().trim().isEmpty()){
+            throw new IllegalArgumentException("Du skal indtaste et password");
+        }
+        else if(getPassword().length() < 6){
+            throw new IllegalArgumentException("Dit password skal være mindst 6 tegn langt");
+        }
         this.password = password;
     }
 
     public void setEmail(String email){
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("E-mailen skal indeholde et '@' og være gyldig.");
+        }
         this.email = email;
     }
     public void setCatList(List<Cat> catList){

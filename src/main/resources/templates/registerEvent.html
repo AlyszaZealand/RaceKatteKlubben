@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register event</title>
+</head>
+<body>
+
+<h2>Register event</h2>
+<!-----viser error besked hvis validering fejler-->
+<div th:if="${errors != null}">
+    <ul>
+        <li th:each="error : ${errors}" th:text="${error}" style="color: red"></li>
+    </ul>
+</div>
+
+<form action="/registerKat" method="post" th:object="${event}">
+
+    <label>Event navn:</label><br>
+    <input type="text" th:field="*{eventName}"><br><br>
+
+    <label>Beskrivelse</label><br>
+    <input type="text" th:field="*{eventDescription}"><br><br>
+
+    <label>Dato</label><br>
+    <input type="date" th:field="*{eventDate}"><br><br>
+
+    <label>Billede:</label><br>
+    <input type="file" name="image" accept="image/*"><br><br>
+
+    <button type="submit">Opret</button>
+
+</form>
+
+<p><a href="/myProfile">Gå til profil</a></p>
+
+
+</body>
+</html>

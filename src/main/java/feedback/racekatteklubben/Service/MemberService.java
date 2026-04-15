@@ -40,7 +40,6 @@ public class MemberService {
     }
 
 
-
     public Optional<Member> getMemberByEmail(String email){
         return memberRepository.findMemberByEmail(email);
     }
@@ -57,6 +56,7 @@ public class MemberService {
         memberRepository.deleteProfile(member.getMemberID());
     }
 
+
     public ValidationResult updateMemberInformation(Member member){
         ValidationResult result = validateMember.validateUpdateMember(member);
 
@@ -66,6 +66,7 @@ public class MemberService {
         memberRepository.updateMemberInformation(member);
         return result;
     }
+
 
     public ValidationResult updateMemberPassword(Member member, String currentPassword, String newPassword, String confirmPassword) {
         ValidationResult result = new ValidationResult();

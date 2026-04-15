@@ -47,8 +47,11 @@
 </form>
 
 <a href="/">Gå til forside</a><br>
+<a href="/registerEvent">Lav et event</a>
 
-
+<form th:action="@{/deleteProfile/{id}(id=${loggedInUser.memberID})}" method="post">
+    <button type="submit" class="btn btn-danger">Slet profil</button>
+</form>
 
 </body>
 </html>

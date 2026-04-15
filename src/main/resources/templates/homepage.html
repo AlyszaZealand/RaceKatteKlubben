@@ -2,19 +2,47 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Forside - Racekatteklubben</title>
 </head>
 <body>
 
+<nav style="background-color: #f0f0f0; padding: 15px; margin-bottom: 30px;">
+    <a href="/register">Opret bruger</a> |
+    <a href="/login">Log ind</a> |
+    <a href="/CatList">Alle katte</a> |
+    <a href="/MemberList">Alle medlemmer</a> |
+    <a href="/myProfile">Min Profil</a> |
+    <a href="/registerEvent">Opret Event</a>
+</nav>
 
+<h1>Velkommen til Racekatteklubben!</h1>
 
-<p>
-    <a href="/register">Klik her for at registrere en ny bruger</a><br><br>
-    <a href="/login">Klik her for at gå til login</a><br><br>
-    <a href="/CatList">Klik her for få et list over Katte</a><br><br>
-    <a href="/MemberList">Klik her for få et list over Medlemmer</a><br><br>
-    <a href="/myProfile">Gå til Min Profil</a><br><br>
+<h2>Kommende Udstillinger & Events</h2>
 
-</p>
+<div th:if="${events.isEmpty()}">
+    <p>Der er i øjeblikket ingen planlagte events.</p>
+</div>
+
+<table border="1" th:unless="${events.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Event Navn</th>
+        <th>Dato</th>
+        <th>Beskrivelse</th>
+        <th>Tilmelding</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.eventName}"></td>
+        <td th:text="${event.eventDate}"></td>
+        <td th:text="${event.eventDescription}"></td>
+        <td>
+            <a th:href="@{/events/{id}(id=${event.eventID})}">Se mere & Tilmeld katte</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Tilmelding</title>
+</head>
+<body>
+
+<h1 th:text="${event.eventName}">Event Navn</h1>
+<p><strong>Dato:</strong> <span th:text="${event.eventDate}"></span></p>
+<p><strong>Beskrivelse:</strong> <span th:text="${event.eventDescription}"></span></p>
+
+<hr>
+
+<h2>Tilmeld dine katte</h2>
+
+<div th:if="${myCats.isEmpty()}">
+    <p>Du har ingen katte registreret på din profil endnu.</p>
+    <a href="/registerKat">Klik her for at oprette en kat</a>
+</div>
+
+<table border="1" th:unless="${myCats.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Din Kat</th>
+        <th>Handling</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cat : ${myCats}">
+        <td th:text="${cat.catName}"></td>
+        <td>
+            <form th:if="${!signedUpCatIds.contains(cat.catID)}" action="/events/signup" method="post" style="display:inline;">
+                <input type="hidden" name="eventID" th:value="${event.eventID}">
+                <input type="hidden" name="catID" th:value="${cat.catID}">
+                <button type="submit" style="background-color: #4CAF50; color: white;">Tilmeld til event</button>
+            </form>
+
+            <form th:if="${signedUpCatIds.contains(cat.catID)}" action="/events/remove" method="post" style="display:inline;">
+                <input type="hidden" name="eventID" th:value="${event.eventID}">
+                <input type="hidden" name="catID" th:value="${cat.catID}">
+                <button type="submit" style="background-color: #f44336; color: white;">Afmeld kat</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Alle tilmeldte katte:</h3>
+<ul th:if="${attendingCats != null}">
+    <li th:each="attendingCat : ${attendingCats}">
+        <strong th:text="${attendingCat.catName}"></strong> <span th:text="'(' + ${attendingCat.catRace} + ')'"></span>
+    </li>
+</ul>
+<p th:if="${attendingCats == null || attendingCats.isEmpty()}">Der er ingen katte tilmeldt endnu.</p>
+
+<br>
+<a href="/">Gå tilbage til forsiden</a>
+
+</body>
+</html>

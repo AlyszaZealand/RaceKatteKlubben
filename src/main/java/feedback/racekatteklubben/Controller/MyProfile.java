@@ -21,6 +21,7 @@ public class MyProfile {
 
     private CatService catService;
     private MemberService memberService;
+
     public MyProfile(CatService catService, MemberService memberService) {
         this.catService = catService;
         this.memberService = memberService;
@@ -89,7 +90,6 @@ public class MyProfile {
         // 2. Send til Servicen og tjek for valideringsfejl (f.eks. tomt navn)
         ValidationResult result = memberService.updateMemberInformation(editMember);
 
-        //TODO Global error måske?.
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getErrors());
             model.addAttribute("editMember", editMember); // Send dataen tilbage, så felterne ikke bliver tømt
@@ -174,5 +174,13 @@ public class MyProfile {
         return "redirect:/";
     }
 
+    @PostMapping("/deleteProfile/{id}")
+    public String handleDeleteProfile(HttpSession session, Model model, @PathVariable int id) {
+        memberService.deleteProfile(session.getAttribute("loggedInUser")
+                != null ? (Member) session.getAttribute("loggedInUser") : null);
+
+        session.invalidate();
+        return "redirect:/";
+    }
 
 }

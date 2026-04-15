@@ -1,6 +1,7 @@
 package feedback.racekatteklubben.Service;
 
 import feedback.racekatteklubben.Model.Cat;
+import feedback.racekatteklubben.Model.RepoInterfaces.CatRepositoryImpl;
 import feedback.racekatteklubben.Repository.CatRepository;
 import feedback.racekatteklubben.Service.Validation.ValidateCat;
 import feedback.racekatteklubben.Service.Validation.ValidationResult;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 public class CatService {
 
-    private final CatRepository catRepository;
+    private final CatRepositoryImpl catRepository;
     private final ValidateCat validateCat;
 
     public CatService(CatRepository catRepository, ValidateCat validateCat) {
@@ -50,6 +51,10 @@ public class CatService {
 
         catRepository.saveCat(newCat);
         return result;
+    }
+
+    public List<Cat> getCatsForEvent(int eventID) {
+        return catRepository.findCatsByEventID(eventID);
     }
 
     public List<Cat> getCatsForMember(int memberID){
