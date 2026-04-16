@@ -3,27 +3,33 @@
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 40px; margin-top: 20px;">Log ind</h1><br>
 
-<h2>Log ind</h2>
 
 <div th:if="${error != null}">
-    <p th:text="${error}" style="color: red"></p>
+    <p th:text="${error}" style="color: red; text-align: center"></p>
 </div>
 
-<form action="/login" method="post">
-    <label>E-mail:</label><br>
-    <input type="email" name="email" required><br><br>
+<div class="form-container">
+    <form action="/login" method="post">
+        <label>E-mail:</label><br>
+        <input type="email" name="email" required><br><br>
 
-    <label>Adgangskode:</label><br>
-    <input type="password" name="password" required><br><br>
+        <label>Adgangskode:</label><br>
+        <input type="password" name="password" required><br><br>
 
-    <button type="submit">Log ind</button>
-</form>
+        <button type="submit">Log ind</button>
+    </form>
 
-<p><a href="/register">Opret ny bruger</a></p>
-<a href="/">Gå til forside</a><br>
+    <button onclick="window.location.href='/register'" class="back-button" style="margin-top: 10px;">Opret ny bruger</button>
+
+</div>
+
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 
 </body>
 </html>

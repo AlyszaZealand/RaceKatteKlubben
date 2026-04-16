@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--  <link rel="stylesheet" th:href="@{/style.css}"/>-->
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
   <meta charset="UTF-8">
   <title>Error</title>
 </head>
 <body>
-<!--<div th:insert="~{parts/navigation::navigation}"></div>-->
+<div th:insert="~{parts/navigation::navigation}"></div>
+
 <h1>Noget gik galt ❌</h1>
 <div style="margin-bottom: 30px"></div>
 
@@ -21,6 +22,6 @@
 <a th:if="${previousUrl}" th:href="${previousUrl}">Gå tilbage &#8617;</a>
 <div style="margin-bottom: 25px"></div>
 <a th:unless="${previousUrl}" href="/">Gå til forsiden &#8617;</a>
-<!--<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>-->
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 </body>
 </html>

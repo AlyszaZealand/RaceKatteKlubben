@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Velkommen</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
 
-<h1>Velkommen, <span th:text="${loggedInUser.username}"></span></h1>
-
-<p>
-    <a href="/registerKat">Klik her for at registrere en ny kat</a><br><br>
-    <a href="/editProfile">Rediger profil</a>
-</p>
+<h1 style="text-align: center; color: rebeccapurple;
+ font-size: 30px; margin-top: 10px;">Velkommen,
+    <span th:text="${loggedInUser.username}"></span></h1>
 
 
-<table border="1">
+<table border="1" class="cat-table">
     <thead>
     <tr>
         <th>Navn</th>
@@ -32,26 +31,37 @@
         <td th:text="${cat.catGender}"></td>
         <td th:text="${cat.catDescription}"></td>
         <td>
-            <a th:href="@{/edit/{id}(id=${cat.catID})}">Rediger Kat</a>
-
+<!--            <button onclick="window.location.href='@{/edit/{id}(id=${cat.catID})}'" class="back-button" style="margin-bottom: 10px;">Rediger kat</button>-->
+<!--            <a th:href="@{/edit/{id}(id=${cat.catID})}" class="back-button" style="margin-bottom: 10px;">Rediger kat</a>-->
+<!--            <a th:href="@{/edit/{id}(id=${cat.catID})}">Rediger Kat</a>-->
+            <form th:action="@{/editCat/{id}(id=${cat.catID})}" method="post" style="display:inline;">
+                <button type="submit">Rediger kat</button>
+            </form>
             <form th:action="@{/delete/{id}(id=${cat.catID})}" method="post" style="display:inline;">
-                <button type="submit">Slet</button>
+                <button type="submit">Slet kat</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit" class="btn btn-danger">Logout</button>
-</form>
+<div>
+    <button onclick="window.location.href='/registerKat'" class="back-button" style="margin-top: 10px;">Opret Kat</button>
+    <button onclick="window.location.href='/editProfile'" class="back-button" style="margin-top: 10px;">Rediger Profil</button>
+    <button onclick="window.location.href='/registerEvent'" class="back-button" style="margin-top: 10px;">Opret Event</button>
+</div>
 
-<a href="/">Gå til forside</a><br>
-<a href="/registerEvent">Lav et event</a>
+<div style="margin-top: 30px;">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger"style="background-color: red; margin-top: 10px">Logout</button>
+    </form>
+    <form th:action="@{/deleteProfile/{id}(id=${loggedInUser.memberID})}" method="post">
+        <button type="submit" class="btn btn-danger" style="margin-top: 20px; background-color: red">Slet profil</button>
+    </form>
+</div>
 
-<form th:action="@{/deleteProfile/{id}(id=${loggedInUser.memberID})}" method="post">
-    <button type="submit" class="btn btn-danger">Slet profil</button>
-</form>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
+
 
 </body>
 </html>

@@ -3,10 +3,12 @@
 <head>
     <title>Opret Medlem</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Opret ny profil</h1>
 
-<h2>Opret ny profil</h2>
 
 <div th:if="${errors != null}">
     <ul>
@@ -14,8 +16,8 @@
     </ul>
 </div>
 
-
-<form action="/register" method="post">
+<div class="form-container">
+    <form action="/register" method="post">
     <label>Navn:</label><br>
     <input type="text" name="username"><br><br>
 
@@ -29,10 +31,14 @@
     <textarea name="memberDescription" rows="3"></textarea><br><br>
 
     <button type="submit">Opret</button>
-</form>
+    </form>
+    <button onclick="window.location.href='/login'" class="back-button" style="margin-top: 10px;">Gå til Login</button>
+</div>
 
-<p><a href="/login">Gå til login</a></p>
-<a href="/">Gå til forside</a><br>
+
+
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
+
 
 </body>
 </html>

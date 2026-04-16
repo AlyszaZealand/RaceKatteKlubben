@@ -2,25 +2,28 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Redigere Kat</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Rediger kat</h1>
 
-<h2>Rediger Kat</h2>
 
 <div th:if="${errors != null}">
     <ul>
-        <li th:each="error : ${errors}" th:text="${error}"></li>
+        <li th:each="error : ${errors}" th:text="${error}" style="color: red; text-align: center"></li>
     </ul>
 </div>
 
 <form th:action="@{/editCat/{id}(id=${editCat.catID})}"
       method="post"
       th:object="${editCat}"
-      enctype="multipart/form-data">
+      enctype="multipart/form-data"
+    class="form-container">
 
     <label>Katte navn:</label><br>
-    <input type="text" th:field="*{catName}"><br><br>
+    <input type="text" th:field="*{catName}" style="width: 200px"><br><br>
 
     <label>Race:</label><br>
     <p>Sibirisk-Kat</p>
@@ -37,7 +40,7 @@
     </select><br><br>
 
     <label>Beskrivelse:</label><br>
-    <textarea th:field="*{catDescription}" rows="3"></textarea><br><br>
+    <textarea th:field="*{catDescription}" rows="3" style="width: 200px"></textarea><br><br>
 
     <label>Billede:</label><br>
     <input type="file" name="image" accept="image/*"><br><br>
@@ -53,8 +56,12 @@
 
 
 </form>
+<div style="display: flex; justify-content: center;">
+    <button onclick="window.location.href='/myProfile'" style="margin-top: 10px; text-align: center">Gå til Min Profil</button>
+</div>
 
-<p><a href="/myProfile">Gå til profil</a></p>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
+
 
 </body>
 </html>

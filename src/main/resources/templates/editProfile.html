@@ -2,11 +2,13 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Rediger profil</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Rediger profil</h1>
 
-<h2>Rediger profil</h2>
 
 <div th:if="${errors != null}">
     <ul>
@@ -14,7 +16,8 @@
     </ul>
 </div>
 
-<form th:action="@{/editProfile/{id}(id=${editMember.memberID})}" method="post" th:object="${editMember}">
+<form th:action="@{/editProfile/{id}(id=${editMember.memberID})}" method="post" th:object="${editMember}"
+        class="form-container">
 
     <label>Navn:</label><br>
     <input type="text" th:field="*{username}" required><br><br>
@@ -32,7 +35,10 @@
 
 </form>
 
-<p><a href="/myProfile">Gå til profil</a></p>
+<div style="display: flex; justify-content: center;">
+    <button onclick="window.location.href='/myProfile'" style="margin-top: 10px; text-align: center">Gå til Min Profil</button>
+</div>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 
 </body>
 </html>

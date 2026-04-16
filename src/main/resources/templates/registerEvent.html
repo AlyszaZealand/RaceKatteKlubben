@@ -2,11 +2,13 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Register event</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Opret Event</h1>
 
-<h2>Register event</h2>
 <!-----viser error besked hvis validering fejler-->
 <div th:if="${errors != null}">
     <ul>
@@ -14,13 +16,13 @@
     </ul>
 </div>
 
-<form action="/registerEvent" method="post" th:object="${event}">
+<form action="/registerEvent" method="post" th:object="${event}" class="form-container">
 
     <label>Event navn:</label><br>
-    <input type="text" th:field="*{eventName}"><br><br>
+    <input type="text" th:field="*{eventName}" style="width: 250px"><br><br>
 
     <label>Beskrivelse</label><br>
-    <input type="text" th:field="*{eventDescription}"><br><br>
+    <input type="text" th:field="*{eventDescription}" style="width: 250px"><br><br>
 
     <label>Dato</label><br>
     <input type="date" th:field="*{eventDate}"><br><br>
@@ -32,8 +34,13 @@
 
 </form>
 
-<p><a href="/myProfile">Gå til profil</a></p>
 
+<div style="display: flex; justify-content: center;">
+    <button onclick="window.location.href='/myProfile'" style="margin-top: 10px; text-align: center">Gå til Min Profil</button>
+</div>
+
+
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 
 </body>
 </html>

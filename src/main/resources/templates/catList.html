@@ -2,12 +2,15 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Katte liste</title>
 </head>
+
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Vores katte</h1>
 
-
-    <table border="1">
+    <table border="1" class="cat-table">
         <thead>
         <tr>
             <th>Billede</th>
@@ -37,9 +40,6 @@
         </tr>
         </tbody>
     </table>
-
-
-    <a href="/">Gå til forside</a><br>
-
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 </body>
 </html>

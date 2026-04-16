@@ -2,11 +2,13 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Registrer Kat</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Opret kat</h1>
 
-<h2>Opret ny Katte profil</h2>
 <!-----viser error besked hvis validering fejler-->
 <div th:if="${errors != null}">
     <ul>
@@ -14,7 +16,7 @@
     </ul>
 </div>
 
-<form action="/registerKat" method="post" th:object="${cat}">
+<form action="/registerKat" method="post" th:object="${cat}" class="form-container">
 
     <label>Katte navn:</label><br>
     <input type="text" th:field="*{catName}"><br><br>
@@ -42,7 +44,11 @@
 
 </form>
 
-<p><a href="/myProfile">Gå til profil</a></p>
+<div style="display: flex; justify-content: center;">
+    <button onclick="window.location.href='/myProfile'" style="margin-top: 10px; text-align: center">Gå til Min Profil</button>
+</div>
+
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 
 
 </body>

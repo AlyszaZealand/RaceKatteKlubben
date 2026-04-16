@@ -3,28 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Forside - Racekatteklubben</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
-<nav style="background-color: #f0f0f0; padding: 15px; margin-bottom: 30px;">
-    <a href="/register">Opret bruger</a> |
-    <a href="/login">Log ind</a> |
-    <a href="/CatList">Alle katte</a> |
-    <a href="/MemberList">Alle medlemmer</a> |
-    <a href="/myProfile">Min Profil</a> |
-    <a href="/registerEvent">Opret Event</a> |
-<!--    LOGOUT-->
-</nav>
+<div th:insert="~{parts/navigation::navigation}"></div>
 
-<h1>Velkommen til Racekatteklubben!</h1>
 
-<h2>Kommende Udstillinger & Events</h2>
+<h1 style="text-align: center; color: rebeccapurple; font-size: 40px; margin-top: 20px;">Velkommen til Racekatteklubben!</h1><br>
+
+<h2 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 1px;">Kommende Udstillinger & Events</h2><br>
 
 <div th:if="${events.isEmpty()}">
     <p>Der er i øjeblikket ingen planlagte events.</p>
 </div>
-
-<table border="1" th:unless="${events.isEmpty()}">
+<form>
+<table border="1" th:unless="${events.isEmpty()}" class="event-table">
     <thead>
     <tr>
         <th>Event Navn</th>
@@ -44,6 +38,7 @@
     </tr>
     </tbody>
 </table>
-
+</form>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
 </body>
 </html>

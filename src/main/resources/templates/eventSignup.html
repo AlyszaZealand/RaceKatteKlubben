@@ -2,24 +2,29 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Event Tilmelding</title>
 </head>
 <body>
+<div th:insert="~{parts/navigation::navigation}"></div>
 
-<h1 th:text="${event.eventName}">Event Navn</h1>
-<p><strong>Dato:</strong> <span th:text="${event.eventDate}"></span></p>
-<p><strong>Beskrivelse:</strong> <span th:text="${event.eventDescription}"></span></p>
+<h1 th:text="${event.eventName}" style="text-align: center; color: rebeccapurple; font-size: 40px; margin-top: 20px;">Event navn</h1><br>
 
-<hr>
+<hr><br>
 
-<h2>Tilmeld dine katte</h2>
+<p><strong style="text-align: center">Dato:</strong> <span th:text="${event.eventDate}"></span></p>
+<p><strong>Beskrivelse:</strong> <span th:text="${event.eventDescription}"></span></p><br>
+
+<hr><br>
+
+<h2 style="text-align: center; color: rebeccapurple">Tilmeld dine katte</h2>
 
 <div th:if="${myCats.isEmpty()}">
     <p>Du har ingen katte registreret på din profil endnu.</p>
     <a href="/registerKat">Klik her for at oprette en kat</a>
 </div>
 
-<table border="1" th:unless="${myCats.isEmpty()}">
+<table border="1" th:unless="${myCats.isEmpty()}" class="cat-table">
     <thead>
     <tr>
         <th>Din Kat</th>
@@ -48,16 +53,19 @@
 
 <hr>
 
-<h3>Alle tilmeldte katte:</h3>
-<ul th:if="${attendingCats != null}">
+<h3 style="text-align: center; color: rebeccapurple; font-size: 30px; margin-top: 10px;">Tilmeldte Katte</h3>
+
+
+<ul th:if="${attendingCats != null}" >
     <li th:each="attendingCat : ${attendingCats}">
         <strong th:text="${attendingCat.catName}"></strong> <span th:text="'(' + ${attendingCat.calculateCatAge()} + ' år gammel)'"></span>
     </li>
 </ul>
-<p th:if="${attendingCats == null || attendingCats.isEmpty()}">Der er ingen katte tilmeldt endnu.</p>
+<p th:if="${attendingCats == null || attendingCats.isEmpty()}" style="text-align: center">Der er ingen katte tilmeldt endnu.</p>
 
 <br>
-<a href="/">Gå tilbage til forsiden</a>
+<div th:insert="~{parts/footer :: footer}" style="text-align: center; margin-bottom: 20px;"></div>
+
 
 </body>
 </html>

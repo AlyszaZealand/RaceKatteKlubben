@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+nav.navigation {
+    background-color: rebeccapurple;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+nav.navigation a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+nav.navigation {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+footer.footer {
+    background-color: orange;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-family: 'cursive', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+}
+
+/*MOBIL*/
+/*@media (max-width: 768px) {*/
+/*    .burger {*/
+/*        display: flex;*/
+/*    }*/
+
+/*    .nav {*/
+/*        position: absolute;*/
+/*        top: 70px;*/
+/*        left: 0;*/
+/*        width: 100%;*/
+/*        background-color: #1f2937;*/
+/*        display: none;*/
+/*    }*/
+
+/*    .nav-list {*/
+/*        flex-direction: column;*/
+/*        gap: 0;*/
+/*    }*/
+
+/*    .nav-list li {*/
+/*        border-top: 1px solid rgba(255, 255, 255, 0.1);*/
+/*    }*/
+
+/*    .nav-list a {*/
+/*        display: block;*/
+/*        padding: 1rem;*/
+/*    }*/
+
+/*    .menu-toggle:checked + .burger + .nav {*/
+/*        display: block;*/
+/*    }*/
+
+/*    .hero h1 {*/
+/*        font-size: 1.8rem;*/
+/*    }*/
+/*}*/
+
+/* Gælder for ALLE tabeller på hele sitet */
+
+
+
+/* Kat liste tabel */
+table.cat-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+table.cat-table th {
+    background-color: #ff8c00;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table.cat-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table.cat-table tr:nth-child(even) {
+    background-color: #fff3e0;
+}
+
+table.cat-table tr:hover {
+    background-color: #ffe0b2;
+}
+
+/* Medlems liste tabel */
+table.member-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+table.member-table th {
+    background-color: #2196f3;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table.member-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table.member-table tr:nth-child(even) {
+    background-color: #e3f2fd;
+}
+
+table.member-table tr:hover {
+    background-color: #bbdefb;
+}
+
+/* Event tabel */
+table.event-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+table.event-table th {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table.event-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table.event-table tr:nth-child(even) {
+    background-color: #e8f5e9;
+}
+
+table.event-table tr:hover {
+    background-color: #c8e6c9;
+}
+
+
+
+
+
+
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Center the content */
+.form-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Form Elements */
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+button {
+    background-color: rebeccapurple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+}
+
+button:hover {
+    background-color: #5a2d82;
+}
+
+/* Link Styling */
+a {
+    color: rebeccapurple;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}

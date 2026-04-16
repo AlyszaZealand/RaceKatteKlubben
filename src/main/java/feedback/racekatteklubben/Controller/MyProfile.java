@@ -54,17 +54,6 @@ public class MyProfile {
         return "redirect:/myProfile";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable int id, Model model) {
-        Cat editCat = catService.getCatByID(id).orElse(null);
-
-        if (editCat == null) {
-            return "redirect:/myProfile";
-        }
-
-        model.addAttribute("editCat", editCat);
-        return "editCat";
-    }
 
     @GetMapping("/editProfile")
     public String showEditProfile(HttpSession session, Model model) {
@@ -148,7 +137,17 @@ public class MyProfile {
 
 
 
+    @GetMapping("/editCat/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        Cat editCat = catService.getCatByID(id).orElse(null);
 
+        if (editCat == null) {
+            return "redirect:/myProfile";
+        }
+
+        model.addAttribute("editCat", editCat);
+        return "editCat";
+    }
 
     @PostMapping("/editCat/{id}")
     public String updateCat(@PathVariable int id,
