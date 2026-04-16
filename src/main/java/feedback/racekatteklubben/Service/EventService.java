@@ -62,9 +62,7 @@ public class EventService {
     public List<Integer> getSignedUpCatsIDs(int eventID){
         return eventRepository.findSignedUpCats(eventID);
     }
-   /* public List<Cat> findCatNameSignedUpForEvent(){
 
-    }*/
 
 
 

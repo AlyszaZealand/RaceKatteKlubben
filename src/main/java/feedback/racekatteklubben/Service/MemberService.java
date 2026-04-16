@@ -71,7 +71,7 @@ public class MemberService {
     public ValidationResult updateMemberPassword(Member member, String currentPassword, String newPassword, String confirmPassword) {
         ValidationResult result = new ValidationResult();
 
-        //Ryke til validateMember som sin egen metode
+        //Rykke til validateMember som sin egen metode
         // 1. Check current password is correct
         if (!BCrypt.checkpw(currentPassword, member.getPassword())) {
             result.addError("Det nuværende password er forkert");
@@ -103,6 +103,7 @@ public class MemberService {
 
         if(memberOptional.isPresent()){
             Member loggedMember = memberOptional.get();
+
 
             try{
                 if(BCrypt.checkpw(rawPassword, loggedMember.getPassword())){
@@ -139,11 +140,7 @@ public class MemberService {
         newMember.setPassword(hashedPassword);
         memberRepository.saveProfile(newMember);
 
-        return result; // no errors = success
+        return result;
     }
-    //---------------------------------------------------------------------------------------------------
-
-
-
 
 }

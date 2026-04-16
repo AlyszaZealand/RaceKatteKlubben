@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Base64;
 
 @Controller
 public class AuthenticateCat {
@@ -36,8 +35,6 @@ public class AuthenticateCat {
     }
 
         //Parameter noget nyt "@RequestParam(value = "image", required = false) MultipartFile image"
-        //Kaster IOExcpetion
-        //Billede validation, som nok skal rykkes et andet sted måske?
     @PostMapping("/registerKat")
     public String handleRegisterCat(@ModelAttribute Cat cat,
                                     @RequestParam(value = "image", required = false) MultipartFile image,

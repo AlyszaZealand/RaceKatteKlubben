@@ -28,7 +28,7 @@ public class EventController {
     @GetMapping("/registerEvent")
     public String showEventForm(Model model,HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";// Man skal være logget ind for at tilmelde katte
+            return "redirect:/login";
         }
         model.addAttribute("event", new Event());
         return "registerEvent";
@@ -54,7 +54,6 @@ public class EventController {
     @GetMapping("/events/{id}")
     public String showEventDetails(@PathVariable int id, HttpSession session, Model model) {
 
-        // 1. DØRMANDEN: Smid gæster væk med det samme!
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
@@ -64,13 +63,11 @@ public class EventController {
             return "redirect:/";
         }
 
-        // 2. HENT ALT DATA (Vi ved nu, at brugeren er logget ind)
         Member loggedInUser = (Member) session.getAttribute("loggedInUser");
         List<Cat> attendingCats = catService.getCatsForEvent(id);
         List<Cat> myCats = catService.getCatsForMember(loggedInUser.getMemberID());
         List<Integer> signedUpCatIds = eventService.getSignedUpCatsIDs(id);
 
-        // 3. GIV ALT DATA TIL HTML PÅ ÉN GANG
         model.addAttribute("event", eventOpt.get());
         model.addAttribute("attendingCats", attendingCats);
         model.addAttribute("myCats", myCats);

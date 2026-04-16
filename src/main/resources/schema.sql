@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS kat_event;
-DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS kat;
-DROP TABLE IF EXISTS medlem;
+-- DROP TABLE IF EXISTS kat_event;
+-- DROP TABLE IF EXISTS event;
+-- DROP TABLE IF EXISTS kat;
+-- DROP TABLE IF EXISTS medlem;
 
 
 
 create table medlem(
-                       id INT AUTO_INCREMENT PRIMARY KEY,  -- Rettet fra medlemID til id, så RowMapper kan finde den
+                       id INT AUTO_INCREMENT PRIMARY KEY,
                        username varchar(255),
                        password varchar(256),
                        email varchar(255),
@@ -14,14 +14,14 @@ create table medlem(
 );
 
 create table kat(
-                    catID INT AUTO_INCREMENT PRIMARY KEY, -- Rettet fra katID til catID
+                    catID INT AUTO_INCREMENT PRIMARY KEY,
                     catrace varChar(255),
                     catname varchar(255),
                     catbirthday datetime,
                     catgender varchar(255),
                     catdescription varchar(255),
                     imageName LONGTEXT,
-                    memberID int, -- Rettet fra medlemID til memberID
+                    memberID int,
                     foreign key (memberID) references medlem(id) on DELETE cascade
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE event(
                       eventDescription VARCHAR(255)
 );
 
--- Junction table — this is what creates the many-to-many
+-- Junction table
 CREATE TABLE kat_event(
                           katEventID INT AUTO_INCREMENT PRIMARY KEY,
                           catID INT,

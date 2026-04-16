@@ -72,11 +72,11 @@ public class MyProfile {
     @PostMapping("/editProfile/{id}")
     public String handleEditForm(@PathVariable int id, @ModelAttribute Member editMember, HttpSession session, Model model) {
 
-        // 1. Sørg for at vi opdaterer det rigtige ID
+        //Sørger for at vi opdaterer det rigtige ID
         editMember.setMemberID(id);
 
 
-        // 2. Send til Servicen og tjek for valideringsfejl (f.eks. tomt navn)
+
         ValidationResult result = memberService.updateMemberInformation(editMember);
 
         if (result.hasErrors()) {
@@ -85,15 +85,13 @@ public class MyProfile {
             return "editProfile";
         }
 
-        // 3. MAGIEN: Hent den friske, opdaterede bruger fra databasen
+        //Henter den opdaterede bruger fra databasen
         Optional<Member> updatedMember = memberService.getMemberByID(id);
 
         if (updatedMember.isPresent()) {
-            // Læg den nye, friske bruger ned i sessionen (Overskriv den gamle)
             session.setAttribute("loggedInUser", updatedMember.get());
         }
 
-        // Send dem tilbage til deres profilside
         return "redirect:/myProfile";
     }
 

@@ -21,12 +21,6 @@ public class ValidateCat {
             result.addError("Du skal indtaste en gyldig fødselsdato for katten (må ikke være i fremtiden).");
         }
 
-        // Du skal indtaste enten 'Han eller Hun' køn til din kat.
-//        if (cat.getCatGender() == null || cat.getCatGender().trim().isEmpty()
-//                || cat.getCatGender().equals("Han") || cat.getCatGender().equals("Hun")) {
-//            result.addError("Du skal indtaste enten 'Han eller Hun' køn til din kat.");
-//        }
-
         return result;
     }
 
