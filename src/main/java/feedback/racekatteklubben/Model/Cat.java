@@ -13,12 +13,13 @@ public class Cat {
     private String catDescription;
     private int memberID;
     private String imageName;
+    private String ownerName;
 
 
     public Cat(){}
 
 
-    public Cat(int catID, String catRace, String catName, LocalDate catBirthday, String catGender, String catDescription,  int memberID, String imageName) {
+    public Cat(int catID, String catRace, String catName, LocalDate catBirthday, String catGender, String catDescription,  int memberID, String imageName,  String ownerName) {
         validateCatBirthday(catBirthday);
         validateCatGender(catGender);
         validateCatName(catName);
@@ -30,6 +31,7 @@ public class Cat {
         this.catDescription = catDescription;
         this.memberID = memberID;
         this.imageName = imageName;
+        this.ownerName = ownerName;
     }
 
 
@@ -98,6 +100,14 @@ public class Cat {
     }
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     // calculate age, sent from domain to html

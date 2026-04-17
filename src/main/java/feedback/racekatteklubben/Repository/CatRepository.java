@@ -29,7 +29,8 @@ public class CatRepository implements CatRepositoryImpl {
                 rs.getString("catGender"),
                 rs.getString("catDescription"),
                 rs.getInt("memberID"),
-                rs.getString("imageName")
+                rs.getString("imageName"),
+                rs.getString("ownerName")
         );
     };
 
@@ -70,7 +71,9 @@ public class CatRepository implements CatRepositoryImpl {
     }
 
     public Optional<Cat> findCatByID(int catID){
-        String sql = "SELECT * from kat where catID = ?";
+        String sql = "SELECT kat.*, medlem.username AS ownerName FROM kat " +
+                "LEFT JOIN medlem ON kat.memberID = medlem.id " +
+                "WHERE kat.catID = ?";
 
         try {
             Cat cat = jdbcTemplate.queryForObject(sql, new Object[]{catID}, catRowMapper);
@@ -81,20 +84,24 @@ public class CatRepository implements CatRepositoryImpl {
     }
 
     public List<Cat> findCatsByMemberID(int memberID){
-        String sql = "SELECT * from Kat where memberID = ?";
+        String sql = "SELECT kat.*, medlem.username AS ownerName FROM kat " +
+                "LEFT JOIN medlem ON kat.memberID = medlem.id " +
+                "WHERE kat.memberID = ?";
 
         return jdbcTemplate.query(sql, catRowMapper, memberID);
     }
 
     public List<Cat> findAllCats() {
-        String sql = "Select * from Kat";
+        String sql = "SELECT kat.*, medlem.username AS ownerName FROM kat " +
+                "LEFT JOIN medlem ON kat.memberID = medlem.id";
 
         return jdbcTemplate.query(sql, catRowMapper);
     }
 
     public List<Cat> findCatsByEventID(int eventID) {
-        String sql = "SELECT kat.* FROM kat " +
+        String sql = "SELECT kat.*, medlem.username AS ownerName FROM kat " +
                 "JOIN kat_event ON kat.catID = kat_event.catID " +
+                "LEFT JOIN medlem ON kat.memberID = medlem.id " +
                 "WHERE kat_event.eventID = ?";
 
         return jdbcTemplate.query(sql, catRowMapper, eventID);
