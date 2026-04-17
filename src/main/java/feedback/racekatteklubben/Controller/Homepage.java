@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class Homepage {
         this.memberService = memberService;
         this.catService = catService;
         this.eventService = eventService;
+    }
+
+    // for navigation.html
+    @ModelAttribute("loggedInUser")
+    public Member getLoggedInUser(HttpSession session) {
+        return (Member) session.getAttribute("loggedInUser");
     }
 
     @GetMapping("/")
@@ -52,6 +60,13 @@ public class Homepage {
     @GetMapping("/error")
     public String error() {
         return "error";
+    }
+
+    // logout in the header (navigation.html)
+    @PostMapping("/logout")
+    public String handleLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
 

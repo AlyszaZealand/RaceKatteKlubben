@@ -165,12 +165,6 @@ public class MyProfile {
         return "redirect:/myProfile";
     }
 
-    @PostMapping("/logout")
-    public String handleLogout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
-
     @PostMapping("/deleteProfile/{id}")
     public String handleDeleteProfile(HttpSession session, Model model, @PathVariable int id) {
         memberService.deleteProfile(session.getAttribute("loggedInUser")

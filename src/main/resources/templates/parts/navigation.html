@@ -9,7 +9,10 @@
         <a href="/myProfile">Min Profil</a>|
         <a href="/register">Opret bruger</a>|
         <a href="/login">Log ind</a>
+<!--        logout button will only show if logged in-->
+        <form th:if="${loggedInUser != null}" th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Logout</button>
+        </form>
 </nav>
 </body>
 </html>
-
