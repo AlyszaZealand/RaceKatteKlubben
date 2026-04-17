@@ -16,7 +16,8 @@
     </ul>
 </div>
 
-<form action="/registerKat" method="post" th:object="${cat}" class="form-container">
+<!--Gemmer også kattebillede når create kat og ikke kun via edit cat-->
+<form action="/registerKat" method="post" th:object="${cat}" enctype="multipart/form-data" class="form-container">
 
     <label>Katte navn:</label><br>
     <input type="text" th:field="*{catName}"><br><br>

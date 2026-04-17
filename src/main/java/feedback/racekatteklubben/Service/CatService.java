@@ -73,17 +73,16 @@ public class CatService {
     public void validateImageForCat(Cat newCat,MultipartFile image) throws IOException{
         if (image != null && !image.isEmpty()) {
             // Convert to Base64 and store directly in DB
-            String base64 = null;
-
-            base64 = Base64.getEncoder().encodeToString(image.getBytes());
-
+            String base64 = Base64.getEncoder().encodeToString(image.getBytes());
             String mimeType = image.getContentType();
             newCat.setImageName("data:" + mimeType + ";base64," + base64);
         } else {
-            // Keep existing image if no new one uploaded
-            Cat existing = getCatByID(newCat.getCatID()).orElse(null);
-            if (existing != null) {
-                newCat.setImageName(existing.getImageName());
+            // Keep existing image if no new one uploaded (only for updates, not new cats)
+            if (newCat.getCatID() != 0) {  // Only if cat already has an ID
+                Cat existing = getCatByID(newCat.getCatID()).orElse(null);
+                if (existing != null) {
+                    newCat.setImageName(existing.getImageName());
+                }
             }
         }
     }
