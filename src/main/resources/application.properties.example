@@ -1,5 +1,5 @@
 spring.application.name=RaceKatteKlubben
-# Copy this file to application.properties and replace placeholders with your real DB credentials.
+# Copy this file to application.properties, verify that file is gitignored, then replace placeholders with your real DB credentials.
 spring.datasource.url=jdbc:mysql://localhost:3306/racekatteklubben
 spring.datasource.username=REPLACE_WITH_DB_USERNAME
 spring.datasource.password=REPLACE_WITH_DB_PASSWORD
