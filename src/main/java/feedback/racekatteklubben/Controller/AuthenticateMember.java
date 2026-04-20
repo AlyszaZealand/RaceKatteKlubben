@@ -40,7 +40,7 @@ public class AuthenticateMember {
 
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getErrors());
-            return "/registerMember";
+            return "registerMember";
         }
 
         return "redirect:/login";
@@ -61,7 +61,7 @@ public class AuthenticateMember {
         }
         else {
             model.addAttribute("error", "Hov! E-mailen eller kodeordet er forkert.");
-            return "/login";
+            return "login";
         }
     }
 

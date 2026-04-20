@@ -56,7 +56,6 @@ public class Cat {
     }
 
     public void setCatName(String catName) {
-        validateCatName(catName);
         this.catName = catName;
     }
 
@@ -65,7 +64,6 @@ public class Cat {
     }
 
     public void setCatBirthday(LocalDate catBirthday) {
-        validateCatBirthday(catBirthday);
         this.catBirthday = catBirthday;
     }
 
@@ -75,7 +73,6 @@ public class Cat {
     }
 
     public void setCatGender(String catGender) {
-        validateCatGender(catGender);
         this.catGender = catGender;
     }
 

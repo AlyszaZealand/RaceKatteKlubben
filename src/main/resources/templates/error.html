@@ -11,11 +11,11 @@
 <h1>Noget gik galt ❌</h1>
 <div style="margin-bottom: 30px"></div>
 
-<div th:if="${errors}">
+<div th:if="${error}">
   <p> Der er fundet flere fejl: </p>
-  <u1>
-    <li th:each="error : ${errors}" th:text="${error}" style="color: red"></li>
-  </u1>
+  <ul>
+    <li th:each="error : ${error}" th:text="${error}" style="color: red"></li>
+  </ul>
 </div>
 
 <div style="margin-bottom: 25px"></div>

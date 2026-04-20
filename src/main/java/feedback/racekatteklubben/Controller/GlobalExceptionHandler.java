@@ -18,19 +18,27 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    // Handles any other unexpected exception
-    @ExceptionHandler(Exception.class)
-    public String handleGeneralException(Exception e, Model model) {
+    // Only catches runtime errors — NOT validation
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException e, Model model, HttpServletRequest request) {
         model.addAttribute("error", "Der skete en uventet fejl: " + e.getMessage());
+        model.addAttribute("previousUrl", request.getHeader("Referer"));
         return "error";
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String handleBadRequestException(IllegalArgumentException ex, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("errors", ex.getMessage());
-        modelAndView.addObject("previousUrl", request.getHeader("Referer"));
-        return "redirect:/error";
-    }
+    // Handles any other unexpected exception
+//    @ExceptionHandler(Exception.class)
+//    public String handleGeneralException(Exception e, Model model) {
+//        model.addAttribute("error", "Der skete en uventet fejl: " + e.getMessage());
+//        return "error";
+//    }
+//
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public String handleBadRequestException(IllegalArgumentException ex, HttpServletRequest request) {
+//        ModelAndView modelAndView = new ModelAndView("error");
+//        modelAndView.addObject("errors", ex.getMessage());
+//        modelAndView.addObject("previousUrl", request.getHeader("Referer"));
+//        return "redirect:/error";
+//    }
 
 }

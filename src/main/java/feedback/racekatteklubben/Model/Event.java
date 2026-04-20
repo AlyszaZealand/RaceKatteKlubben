@@ -44,7 +44,6 @@ public class Event {
 
 
         public void setEventDescription(String eventDescription) {
-            validateEventDescription(eventDescription);
             this.eventDescription = eventDescription;
         }
 
@@ -53,7 +52,6 @@ public class Event {
         }
 
         public void setEventDate(LocalDate eventDate) {
-            validateEventDate(eventDate);
             this.eventDate = eventDate;
         }
 

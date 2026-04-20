@@ -11,7 +11,7 @@ public class ValidateEvent {
     public ValidationResult validateEvent(Event event) {
         ValidationResult result = new ValidationResult();
 
-        if (event.getEventName().length() < 5) {
+        if (event.getEventName() == null || event.getEventName().length() < 5) {
             result.addError("Udstillings Navn skal være mindst '5' tegn");
         }
 

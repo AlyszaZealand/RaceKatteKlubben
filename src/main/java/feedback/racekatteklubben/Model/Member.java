@@ -30,12 +30,10 @@ public class Member{
     }
 
     public void setPassword(String password){
-        validatePassword(password);
         this.password = password;
     }
 
     public void setEmail(String email){
-        validateEmail(email);
         this.email = email;
     }
     public void setCatList(List<Cat> catList){
